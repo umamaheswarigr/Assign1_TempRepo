@@ -7,10 +7,10 @@
 
 {% block content %}
   <div id="sidebar">
-    <h3>Categories</h3>
+    <h2>Categories</h2>
     <ul>
       <li {% if not category %}class="selected"{% endif %}>
-        <a href="{% url "shop:product_list" %}">All</a>
+        <a href="{% url "shop:product_list" %}">Home</a>
       </li>
       {% for c in categories %}
         <li {% if category.slug == c.slug %}class="selected"{% endif %}>
@@ -19,12 +19,25 @@
       {% endfor %}
     </ul>
   </div>
+
+  <div id="home">
+
+    <h1><center>Welcome!</center></h1>
+
+      <img src="{% static "img/home.jpg" %}" alt="Home Page" class="center" width="400">
+    <p><center> Welcome to our online bakery! We offer a variety of high quality products ranging from
+      cakes to cookies to pastries. Our online store makes it easy for customers to order items ahead of time to be picked up in store.
+      Our selection of products changes each week, so be sure to
+      check back often to see what different items we offer! You can check out our current offerings below.
+      Feel free to filter the selections using the sidebar menu on the left.</center></p>
+  </div>
+
   <div id="main" class="product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    <h1>{% if category %}{{ category.name }}{% else %}Today's Menu{% endif %}</h1>
     {% for product in products %}
       <div class="item">
         <a href="{{ product.get_absolute_url }}">
-          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
         </a>
         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
         ${{ product.price }}
